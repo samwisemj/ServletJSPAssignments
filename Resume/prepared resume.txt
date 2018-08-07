@@ -1,0 +1,83 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    
+<%@ page import="in.co.cg.resumepojo.ResumePojo" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Resume</title>
+</head>
+<body>
+	<table align = "center">
+		<tr>
+		<td><h1>Resume</h1></td>
+		</tr>
+		
+		<tr>
+			<td>Name:</td>
+			<td><%= ((ResumePojo)(request.getAttribute("ResumeObject"))).getFirstName() %>&nbsp;
+			<%= ((ResumePojo)(request.getAttribute("ResumeObject"))).getLastName() %></td>
+			<td><img src="<%= ((ResumePojo)(request.getAttribute("ResumeObject"))).getPicAddress() %>" height="100px" width="100"/></td>
+		</tr>
+		
+		<tr>
+			<td>Gender</td>
+			<td><%= ((ResumePojo)(request.getAttribute("ResumeObject"))).getGender() %></td>
+		</tr>
+		
+		<tr>
+			<td>Highest Educational Qualification:</td>
+			<td><%= ((ResumePojo)(request.getAttribute("ResumeObject"))).getHighestEdu() %></td>
+		</tr>
+		
+		<tr>
+			<td>Date of Birth:</td>
+			<td><%= ((ResumePojo)(request.getAttribute("ResumeObject"))).getDateOfBirth() %></td>
+		</tr>
+		
+		<tr>
+			<td>Hobbies:</td>
+			<td>
+			<%for(String hobby : ((ResumePojo)(request.getAttribute("ResumeObject"))).getArrayHobbies()){ %>
+			<%= hobby + "\t" %>
+			<%} %>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Address:</td>
+			<td><%= ((ResumePojo)(request.getAttribute("ResumeObject"))).getAddress() %></td>
+		</tr>
+			
+		<tr>
+			<td>Skills:</td>
+			<td>
+			<%for(String hobby : ((ResumePojo)(request.getAttribute("ResumeObject"))).getSkills()){ %>
+			<%= hobby + "\t" %>
+			<%} %>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Email ID:</td>
+			<td><%= ((ResumePojo)(request.getAttribute("ResumeObject"))).getEmail() %></td>
+		</tr>
+		
+		<tr>
+			<td>URL:</td>
+			<td><%= ((ResumePojo)(request.getAttribute("ResumeObject"))).getUrl() %></td>
+		</tr>
+		
+		<tr>
+			<td>Phone:</td>
+			<td><%= ((ResumePojo)(request.getAttribute("ResumeObject"))).getPhno() %></td>
+		</tr>
+		
+		<tr>
+			<td>Summary:</td>
+			<td><%= ((ResumePojo)(request.getAttribute("ResumeObject"))).getSummary() %></td>
+		</tr>
+	</table>
+</body>
+</html>
