@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Resume Formatter</title>
+</head>
+<body>
+
+	<form action="ResumeServlet" method="get">
+		<table align="center">
+			<tr>
+				<td colspan="2">First Name</td>
+				<td><input type="text" name="firstName" ></td>
+			</tr>
+			<tr>
+				<td colspan="2">Last Name</td>
+				<td><input type="text" name="lastName" ></td>
+			</tr>
+			<tr>
+				<td colspan="2">Gender</td>
+				<td><input type="radio" name="gender" value="Male" CHECKED>Male</td>
+				<td><input type="radio" name="gender" value="Female">Female</td>
+			</tr>
+			<tr>
+				<td colspan="2">Highest Qualification</td>
+				<td><select name="qualification" >
+						<option value="tenth">10TH Standard</option>
+						<option value="twelveth">12TH Standard</option>
+						<option value="bachelor">B.Tech</option>
+						<option value="masters">M.Tech</option>
+				</select>
+				<td>
+			</tr>
+			<tr>
+				<td colspan="2">Date Of Birth</td>
+				<td><input type="date" name="dob" ></td>
+			</tr>
+			<tr>
+				<td colspan="2">Hobbies</td>
+				<td colspan="2"><select name="hobbies" multiple >
+						<option value="cricket">Cricket</option>
+						<option value="football">Football</option>
+						<option value="music">Music</option>
+						<option value="cooking">Cooking</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td colspan="2">Skills</td>
+				<td><input type="checkbox" name="skills" value="c">C <input
+					type="checkbox" name="skills" value="cpp">C++ <input
+					type="checkbox" name="skills" value="java">Java <input
+					type="checkbox" name="skills" value="python">Python</td>
+			</tr>
+			<tr>
+				<td colspan="2">Email ID</td>
+				<td><input type="email" name="email" ></td>
+			</tr>
+			<tr>
+				<td colspan="2">Website</td>
+				<td><input type="url" name="website"></td>
+			</tr>
+			<tr>
+				<td colspan="2">Contact Number</td>
+				<td><input name="contact" type="text" pattern="^\d{10}$" ></td>
+			</tr>
+			<tr>
+				<td colspan="2">Bio</td>
+				<td><textarea name="bio" ></textarea></td>
+			</tr>
+		 <!-- <tr>
+			<td colspan="2">Enter your picture</td>
+			<td><input type="file" name="image" ></td>
+			</tr> --> 
+			<tr>
+			<td colspan="2"><input type="submit"></td>
+			<td><input type="reset"></td></tr>
+		</table>
+	</form>
+</body>
+</html>
