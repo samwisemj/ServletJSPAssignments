@@ -12,30 +12,31 @@ import com.moneymoney.framework.account.pojo.BankAccount;
 import com.moneymoney.framework.account.pojo.Customer;
 import com.moneymoney.framework.service.BankAccountService;
 
-public class MMBankAccountService extends BankAccountService{
+public class MMBankAccountService extends BankAccountService {
 
 	BankAccountCollection collection;
+
 	public MMBankAccountService() {
 		super();
-		collection=new MMBankCollection();
+		collection = new MMBankCollection();
 	}
 
 	@Override
-	
+
 	public void createNewSavingsAccount(Map<String, Object> account) {
-		
-		collection.addBankAccount(new MMBankFactory().createNewCurrentAccount(account));
+
+		collection.addBankAccount(new MMBankFactory().createNewSavingsAccount(account));
 	}
 
 	@Override
 	public void createNewCurrentAccount(Map<String, Object> account) {
-		collection.addBankAccount(new MMBankFactory().createNewSavingsAccount(account));
+		collection.addBankAccount(new MMBankFactory().createNewCurrentAccount(account));
 	}
 
 	@Override
 	public Collection<BankAccount> getAllAccounts() {
 		return collection.viewAll();
-		//return null;
+		// return null;
 	}
 
 	@Override
@@ -55,13 +56,41 @@ public class MMBankAccountService extends BankAccountService{
 		return null;
 
 	}
-	
-	public void withdraw(int accNo, double amount) {
+
+	public int withdraw(int accNo, double amount) {
 		BankAccount account = getAccountById(accNo);
-//		account.setAccountBalance((amount <= (account.getAccountBalance()) ? (account.getAccountBalance() - amount)
-//				: account.getAccountBalance()));
+		double amountBefore = account.getAccountBalance();
 		account.withdraw(amount);
+
+		if (amountBefore == account.getAccountBalance())
+			return -1;
+		else
+			return 1;
+	}
+
+	@Override
+	public int fundTransfer(int accNoSender, int accNoReciever, double amount) {
+		/*System.out.println(this.getCurrrentBalance(this.getAccountById(accNoSender)));
+		
+		if (this.withdraw(accNoReciever, amount) == 1) {
+			System.out.println(this.getCurrrentBalance(this.getAccountById(accNoSender)));
+			this.getAccountById(accNoReciever).deposit(amount);
+			System.out.println(this.getCurrrentBalance(this.getAccountById(accNoReciever)));
+			return 1;
+		}
+		return -1;*/
+		
+		BankAccount account = getAccountById(accNoSender);
+		double amountBefore = account.getAccountBalance();
+		account.withdraw(amount);
+		if (amountBefore == account.getAccountBalance())
+			return -1;
+		else
+		{
+			account = getAccountById(accNoReciever);
+			account.deposit(amount);
+			return 1;
+		}
+		
 	}
 }
-
-

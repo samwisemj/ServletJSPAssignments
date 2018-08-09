@@ -15,10 +15,8 @@ body {
 <!-- Compiled and minified JavaScript -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-
 <meta charset="ISO-8859-1">
 <title>Add a savings account</title>
-
 </head>
 <div class="navbar-fixed">
     <nav>
@@ -27,13 +25,13 @@ body {
 <body>
 <div>
     <h5 class="center-align">Enter Account Details</h5>
-  </div>
+ </div>
 <div class="container">
-<form method="get" action="createSavingsAccount.AppController">
+<form method="get" action="createCurrentAccount.AppController">
 	<div align="center">
 		<table class="striped">
 			<tr>
-				<td>Enter Customer Name:</td>
+				<td >Enter Customer Name:</td>
 				<td><input type="text" name="customerName"></td>
 				<td >Enter Mobile Number:</td>
 				<td><input type="text" name="contactNumber" pattern="^\d{10}"></td>
@@ -57,21 +55,18 @@ body {
 				<td></td>
 			</tr>
 			<tr>
-				<td>Will this be a salary<br>account?</td>
-				<td><label><input type="radio" class="with-gap" name="salaried" value="true" checked><span><h7 style="color:black;">Yes</h7></span></label></td>
-				<td><label><input type="radio" class="with-gap" name="salaried" value="false"><span><h7 style="color:black;">No</h7></span></label></td>
-				<td></td>
+				<td>Enter overdraft limit</td>
+				<td><input type="text" name="overdraft"></td>
+				<td></td> <td></td>
 			</tr>
 			<tr>
-				<!-- (Min. Opening Bal must be Rs.5000, if not salaried) -->
-				<td>Enter the initial balance<br>(Minimum Rs.5000.00 if<br>not salaried)</td>
-				<td><input type="text" name="balance" placeholder="RS."></td>
-				<td></td><td></td>
+				<td>Enter the initial balance<br>(Minimum Balance Rs. 10,000.00)</td>
+				<td><input type="text" name="balance" placeholder="Rs."></td>
+				<td></td>
 			</tr>
 			<tr><td></td>
-			<td><button class="btn waves-effect waves-light btn-large" type="submit" value="Create Account">Create Account<i class="material-icons right">send</i></button></td>
+			<td><button class="btn waves-effect waves-light btn-large" type="submit" value="Create Account">Create Current Account<i class="material-icons right">send</i></button></td>
 			<td><button class="btn waves-effect waves-light btn-large"type="reset" value="Reset Fields">Reset   <i class="material-icons right">cancel</i></button></td>
-			<td></td>
 			</tr>
 		</table>
 	</div>

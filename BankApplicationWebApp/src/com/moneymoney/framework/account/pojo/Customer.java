@@ -29,13 +29,14 @@ public abstract class Customer {
 	}
 	
 	public Customer(String customerName, long contactNumber, LocalDate dateOfBirth, String address,
-			String nationality, String gender) {
+			String nationality, String gender,String email) {
 		this.customerName = customerName;
 		this.contactNumber = contactNumber;
 		this.dateOfBirth = dateOfBirth;
 		this.address=address;
 		this.nationality = nationality;
 		this.gender = gender;
+		this.emailId=email;
 	}
 	
 	
@@ -73,7 +74,7 @@ public abstract class Customer {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String getPermanentAddress() {
+	public String getAddress() {
 		return address;
 	}
 	public void setPermanentAddress(String address) {

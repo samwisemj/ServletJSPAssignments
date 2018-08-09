@@ -27,4 +27,8 @@ public abstract class BankAccountService {
 	public abstract Collection<Customer> getAllCustomers();
 	
 	public abstract BankAccount getAccountById(int id);
+	
+	public abstract int withdraw(int accNo,double amount);
+	
+	public abstract int fundTransfer(int accNoSender,int accNoReciever,double amount);
 }

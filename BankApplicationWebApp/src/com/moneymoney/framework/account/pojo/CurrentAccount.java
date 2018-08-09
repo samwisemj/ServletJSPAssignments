@@ -2,8 +2,6 @@ package com.moneymoney.framework.account.pojo;
 
 
 /**
- * 
- * 
  *
  *Maintining current account details of all the holders
  */
