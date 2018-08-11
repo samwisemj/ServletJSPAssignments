@@ -32,7 +32,7 @@ body {
 		<table class="centered">
 			<tr>
 			<td><b>Enter Account Number to be searched:</b></td>
-				<td><input type="text" name="search" placeholder="Enter account Number"></td>
+				<td><input type="text" name="search" placeholder="Enter account Number" required="required"></td>
 			</tr>
 		</table><br><br>
 		<div class="center-align">

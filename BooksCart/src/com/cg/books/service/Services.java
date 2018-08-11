@@ -9,30 +9,30 @@ public class Services {
 	BookDAO dao;
 
 	public Services() {
-		this.dao=new BookDAO();
+		this.dao = new BookDAO();
 	}
-	
-	public void add(String isbn)
-	{
+
+	public void add(String isbn) {
 		dao.addNewBookToCart(isbn);
 	}
-	
-	public void remove(String isbn)
-	{
+
+	public void remove(String isbn) {
 		dao.removeBookfromCart(isbn);
 	}
-	public int getCount()
-	{
+
+	public int getCount() {
 		return dao.getCartCount();
 	}
-	
-	public List<Book> getBooks()
-	{
+
+	public List<Book> getBooks() {
 		return dao.getBooks();
 	}
-	
-	public List<Book> getCart()
-	{
-	 return dao.getCart();	
+
+	public List<Book> getCart() {
+		return dao.getCart();
+	}
+
+	public double[] getTotalQty() {
+		return dao.getTotalQty();
 	}
 }

@@ -35,9 +35,9 @@ body {
 		<table class="striped">
 		<tr>
 		<td>Enter Account number</td>
-		<td><input type="text" name="accNo"></td>
+		<td><input type="text" name="accNo" required="required"></td>
 		<td>Enter Amount</td>
-		<td><input type="text" name="amount" placeholder="0.0"></td>
+		<td><input type="text" name="amount" placeholder="0.0" required="required"></td>
 		</tr>
 		</table><br><br>
 		<div class="center-align"><button class="btn waves-effect waves-light btn-large" type="submit" value="Deposit">Withdrawal     <i class="material-icons right">send</i></button></div>

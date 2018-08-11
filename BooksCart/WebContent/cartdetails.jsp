@@ -4,28 +4,45 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!-- Compiled and minified JavaScript -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 <meta charset="ISO-8859-1">
-<title>Add Books to Cart</title>
+<title>Cart Details</title>
+<style>
+body {
+	 justify-content: space-between;
+}</style>
 </head>
+<div class="navbar-fixed">
+	<nav>
+		<jsp:include page="headers.jsp"></jsp:include>
+	</nav>
+	</div>
+	
 <body>
-
-	<h5 align="right">
-		<a href="redirect.AppController"> Go To Home </a>
-	</h5>
-	<h3 align="center">
-		<b>Cart Details</b>
-	</h3>
-
-
-	<div align="center">
+	<h4 align="center">
+		Cart Details
+	</h4>
+	<div align="center" class="container">
+	<jstl:if test="${requestScope.cartCount==0}">
+			<h5 align="center">Add some books to your cart!!!!</h5>
+		</jstl:if></div>
+	<div align="center" class="container">
 		<jstl:if test="${requestScope.cartCount > 0}">
-			<table>
+			<table class="striped">
 				<tr>
 					<th>BookName</th>
 					<th>Author</th>
 					<th>ISBN</th>
-					<th>Price</th>
 					<th>Quantity</th>
+					<th>Unit Price</th>
+					<th>Total Price</th>
 					<th>...</th>
 				</tr>
 				<jstl:forEach var="book" items="${requestScope.cartlist}">
@@ -33,18 +50,23 @@
 						<td>${book.title}</td>
 						<td>${book.author}</td>
 						<td>${book.isbn}</td>
-						<td>${book.price}</td>
 						<td>${book.quantity}</td>
-						<td><a href="removeFromCart.AppController?isbn=${book.isbn}">Remove
-								from cart</a></td>
+						<td>${book.price}</td>
+						<td>${book.totalPrice}</td>
+						<td><a href="removeFromCart.AppController?isbn=${book.isbn}"><i class="small material-icons left">remove_shopping_cart</i></a></td>
 					</tr>
 				</jstl:forEach>
+				<tr>
+					<td></td>
+					<td></td>
+					<td><h5>Total:</h5></td>
+					<td><h5>${requestScope.totalQtyAndPrice[0]}</h5></td><td></td>
+					<td><h5>${requestScope.totalQtyAndPrice[1]}</h5></td>
+					<td></td>
+					</tr>
 			</table>
 		</jstl:if>
-		<jstl:if test="${requestScope.cartCount==0}">
-			<h3 align="center">Add some books to your cart!!!!</h3>
-		</jstl:if>
 	</div>
-
 </body>
+<jsp:include page="footers.jsp"></jsp:include>
 </html>

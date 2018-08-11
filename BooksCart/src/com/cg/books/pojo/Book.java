@@ -7,13 +7,15 @@ public class Book {
 	private String isbn;
 	private double price;
 	private int quantity;
-	
+
 	public int getQuantity() {
 		return quantity;
 	}
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+		if(this.quantity < 0) 
+			this.quantity=0;
 	}
 
 	public Book(String title, String author, String isbn, double price) {
@@ -22,7 +24,7 @@ public class Book {
 		this.author = author;
 		this.isbn = isbn;
 		this.price = price;
-		quantity=0;
+		quantity = 0;
 	}
 
 	public String getTitle() {
@@ -40,7 +42,8 @@ public class Book {
 	public double getPrice() {
 		return price;
 	}
-	
-	
-	
+
+	public double getTotalPrice() {
+		return quantity*price;
+	}
 }

@@ -1,12 +1,9 @@
 package com.cg.books.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-
 import com.cg.books.pojo.Book;
 
 public class BookDAO {
@@ -49,24 +46,36 @@ public class BookDAO {
 			if (book.getIsbn().equalsIgnoreCase(isbn)) {
 				cart.add(book);
 			}
-			
+
 		}
 	}
 
 	public void removeBookfromCart(String isbn) {
-		for (Book book : cart) {
-			if (book.getIsbn().equalsIgnoreCase(isbn))
+		for (Book book : books) {
+			if (book.getIsbn().equalsIgnoreCase(isbn)) {
 				book.setQuantity(book.getQuantity() - 1);
+				break;
+			}
 		}
 		for (Book book : cart) {
-			if ((book.getIsbn().equalsIgnoreCase(isbn)) && (book.getQuantity() == 0))
-				cart.remove(book);break;
+			if ((book.getIsbn().equalsIgnoreCase(isbn)) && (book.getQuantity() == 0)) {
+				cart.remove(book);
+				break;
+			}
 		}
-
 	}
 
 	public int getCartCount() {
 		return cart.size();
+	}
+
+	public double[] getTotalQty() {
+		double ar[] = { 0.0, 0.0 };
+		for (Book book : books) {
+			ar[0] += book.getQuantity();
+			ar[1] += book.getTotalPrice();
+		}
+		return ar;
 	}
 
 }

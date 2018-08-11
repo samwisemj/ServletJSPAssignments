@@ -57,6 +57,7 @@ public class AppController extends HttpServlet {
 		
 		request.setAttribute("cartlist", service.getCart());
 		request.setAttribute("cartCount", service.getCount());
+		request.setAttribute("totalQtyAndPrice", service.getTotalQty());
 		request.getRequestDispatcher("cartdetails.jsp").forward(request, response);
 	}
 

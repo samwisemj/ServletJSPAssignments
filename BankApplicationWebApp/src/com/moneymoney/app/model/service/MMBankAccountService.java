@@ -11,7 +11,8 @@ import com.moneymoney.framework.account.dao.BankAccountCollection;
 import com.moneymoney.framework.account.pojo.BankAccount;
 import com.moneymoney.framework.account.pojo.Customer;
 import com.moneymoney.framework.service.BankAccountService;
-
+//service layer for web app...This class acts as a bridge between the controller and the dao
+//and performs some important functions for the controller
 public class MMBankAccountService extends BankAccountService {
 
 	BankAccountCollection collection;
