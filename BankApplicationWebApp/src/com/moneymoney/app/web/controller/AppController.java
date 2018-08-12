@@ -202,7 +202,7 @@ public class AppController extends HttpServlet {
 	private void updateCustomer(HttpServletRequest request) {
 
 		service.getAccountById(Integer.parseInt(request.getParameter("accNo"))).getAccountHolder()
-				.setCustomerName(request.getParameter("name"));
+				.setCustomerName(request.getParameter("customerName"));
 		service.getAccountById(Integer.parseInt(request.getParameter("accNo"))).getAccountHolder()
 				.setEmailId(request.getParameter("email"));
 		service.getAccountById(Integer.parseInt(request.getParameter("accNo"))).getAccountHolder()
