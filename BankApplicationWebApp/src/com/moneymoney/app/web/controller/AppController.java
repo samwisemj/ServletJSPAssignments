@@ -40,85 +40,103 @@ public class AppController extends HttpServlet {
 
 		String action = request.getServletPath();
 
-		switch (action) {
+		try {
+			switch (action) {
 
-		case "/addSavings.AppController":
-			response.sendRedirect("NewSavingsAccountsDetails.jsp");
-			break;
+			case "/addSavings.AppController":// redirects to the savings account page
+				response.sendRedirect("NewSavingsAccountsDetails.jsp");
+				break;
 
-		case "/createSavingsAccount.AppController":
-			createSavingsAccount(request,response);
-			request.setAttribute("message","Savings Account successfully created with account number "+ Integer.toString(service.getNextAccountNumber()-1));
+			case "/createSavingsAccount.AppController":// creates a new savings account with the help of a helper
+														// function
+				createSavingsAccount(request, response);
+				request.setAttribute("message", "Savings Account successfully created with account number "
+						+ Integer.toString(service.getNextAccountNumber() - 1));
+				request.getRequestDispatcher("messagePage.jsp").forward(request, response);
+				break;
+
+			case "/viewAll.AppController":// forwards to the view all page
+				request.setAttribute("allAccount", service.getAllAccounts());
+				request.getRequestDispatcher("viewAll.jsp").forward(request, response);
+				break;
+
+			case "/addCurrent.AppController":// redirects to the current account page
+				response.sendRedirect("NewCurrentAccountsDetails.jsp");
+				break;
+
+			case "/createCurrentAccount.AppController":// creates a new savings account with the help of a helper
+														// function
+				createNewCurrentAccount(request, response);
+				// dispatch a customized message to a message page here
+				request.setAttribute("message", "Current Account successfully created with account number "
+						+ Integer.toString(service.getNextAccountNumber() - 1));
+				request.getRequestDispatcher("messagePage.jsp").forward(request, response);
+				break;
+
+			case "/createSearch.AppController":// redirects to the search account page
+				response.sendRedirect("searchAccount.jsp");
+				break;
+
+			case "/search.AppController":// searches the account with given account id
+				doSearch(request, response);
+				break;
+
+			case "/viewCustomers.AppController":// redirects to the viewall customers page
+				service.getAllAccounts().stream()
+						.forEach((elemnt) -> System.out.println(elemnt.getAccountHolder().getEmailId()));
+				request.setAttribute("allAccount", service.getAllAccounts());
+				request.getRequestDispatcher("viewAllCustomers.jsp").forward(request, response);
+				break;
+
+			case "/editform.AppController":// forwards to the update customer page
+
+				request.setAttribute("account",
+						service.getAccountById(Integer.parseInt(request.getParameter("accountNo"))));
+
+				request.getRequestDispatcher("UpdateCustomer.jsp").forward(request, response);
+				break;
+
+			case "/updateAccount.AppController":// updates a customer's details with help of helper methods
+				updateCustomer(request);
+				// redirection to a message page
+				System.out.println("Updated");
+				break;
+			case "/withdrawl.AppController":// redirects to the withdrawal page
+				response.sendRedirect("withdrawl.jsp");
+				break;
+			case "/doWithdraw.AppController":// makes a withdrawal with help of helper methods
+				withdraw(request, response);
+				break;
+
+			case "/deposit.AppController":// redirects to the deposit page
+				response.sendRedirect("deposit.jsp");
+				break;
+			case "/doDeposit.AppController":// makes a deposit with help of helper methods
+				deposit(request, response);
+				break;
+			case "/fundTransfer.AppController":// redirects to the fund transfer page
+				response.sendRedirect("fundTransfer.jsp");
+				break;
+			case "/doFundTransfer.AppController":// performs fund transfer between two account with the help of helper
+													// methods
+				doFundtransfer(request, response);
+				break;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("message", "Oops!! Something went wrong. Please check your query string.Maybe you have entered an invalid account number");
 			request.getRequestDispatcher("messagePage.jsp").forward(request, response);
-			break;
-
-		case "/viewAll.AppController":
-			request.setAttribute("allAccount", service.getAllAccounts());
-			request.getRequestDispatcher("viewAll.jsp").forward(request, response);
-			break;
-
-		case "/addCurrent.AppController":
-			response.sendRedirect("NewCurrentAccountsDetails.jsp");
-			break;
-
-		case "/createCurrentAccount.AppController":
-			createNewCurrentAccount(request,response);
-			// dispatch a customized message to a message page here
-			request.setAttribute("message","Current Account successfully created with account number "+ Integer.toString(service.getNextAccountNumber()-1));
-			request.getRequestDispatcher("messagePage.jsp").forward(request, response);
-			break;
-
-		case "/createSearch.AppController":
-			response.sendRedirect("searchAccount.jsp");
-			break;
-
-		case "/search.AppController":
-			doSearch(request, response);
-			break;
-
-		case "/viewCustomers.AppController":
-			service.getAllAccounts().stream()
-					.forEach((elemnt) -> System.out.println(elemnt.getAccountHolder().getEmailId()));
-			request.setAttribute("allAccount", service.getAllAccounts());
-			request.getRequestDispatcher("viewAllCustomers.jsp").forward(request, response);
-			break;
-
-		case "/editform.AppController":
-
-			request.setAttribute("account",
-					service.getAccountById(Integer.parseInt(request.getParameter("accountNo"))));
-
-			request.getRequestDispatcher("UpdateCustomer.jsp").forward(request, response);
-			break;
-
-		case "/updateAccount.AppController":
-			updateCustomer(request);
-			// redirection to a message page
-			System.out.println("Updated");
-			break;
-		case "/withdrawl.AppController":
-			response.sendRedirect("withdrawl.jsp");
-			break;
-		case "/doWithdraw.AppController":
-			withdraw(request, response);
-			break;
-
-		case "/deposit.AppController":
-			response.sendRedirect("deposit.jsp");
-			break;
-		case "/doDeposit.AppController":
-			deposit(request, response);
-			break;
-		case "/fundTransfer.AppController":
-			response.sendRedirect("fundTransfer.jsp");
-			break;
-		case "/doFundTransfer.AppController":
-			doFundtransfer(request, response);
-			break;
 		}
+//			finally {
+//			request.setAttribute("message", "Something went wrong. Please check your query string");
+//			request.getRequestDispatcher("messagePage.jsp").forward(request, response);
+//		}
+
 	}
 
-	private void doFundtransfer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// helper method to transfer funds
+	private void doFundtransfer(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		int status = service.fundTransfer(Integer.parseInt(request.getParameter("accNoSender")),
 				Integer.parseInt(request.getParameter("accNoReciever")),
 				Double.parseDouble(request.getParameter("amount")));
@@ -132,6 +150,7 @@ public class AppController extends HttpServlet {
 		request.getRequestDispatcher("messagePage.jsp").forward(request, response);
 	}
 
+	// performs deposit
 	private void deposit(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		service.getAccountById(Integer.parseInt(request.getParameter("accNo")))
@@ -142,6 +161,7 @@ public class AppController extends HttpServlet {
 		request.getRequestDispatcher("messagePage.jsp").forward(request, response);
 	}
 
+	// helper method to perform withdraw
 	private void withdraw(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -149,7 +169,7 @@ public class AppController extends HttpServlet {
 				Double.parseDouble(request.getParameter("amount"))) == -1) {
 			request.setAttribute("message", "Transaction Unsuccessful due to insufficient funds");
 			request.getRequestDispatcher("messagePage.jsp").forward(request, response);
-			
+
 		} else {
 			double amount = Double.parseDouble(request.getParameter("amount"));
 			Map<Integer, Integer> denomination = new HashMap<>();
@@ -178,10 +198,11 @@ public class AppController extends HttpServlet {
 
 	}
 
+	// helper method to update customer details
 	private void updateCustomer(HttpServletRequest request) {
 
 		service.getAccountById(Integer.parseInt(request.getParameter("accNo"))).getAccountHolder()
-				.setCustomerName(request.getParameter("name"));
+				.setCustomerName(request.getParameter("customerName"));
 		service.getAccountById(Integer.parseInt(request.getParameter("accNo"))).getAccountHolder()
 				.setEmailId(request.getParameter("email"));
 		service.getAccountById(Integer.parseInt(request.getParameter("accNo"))).getAccountHolder()
@@ -191,10 +212,12 @@ public class AppController extends HttpServlet {
 
 	}
 
+	// helper method to search accounts
 	private void doSearch(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws Exception {
 
 		BankAccount account = service.getAccountById(Integer.parseInt(request.getParameter("search")));
+		if(account==null)throw new Exception();
 		Collection<BankAccount> allAccount = new ArrayList<>();
 		allAccount.add(account);
 		request.setAttribute("allAccount", allAccount);
@@ -203,7 +226,9 @@ public class AppController extends HttpServlet {
 
 	}
 
-	private void createNewCurrentAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// helper method to create a new current account
+	private void createNewCurrentAccount(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Map<String, Object> map = new HashMap<>();
 		map.put("accountHolderName", request.getParameter("customerName"));
 		map.put("contactNo", Long.parseLong(request.getParameter("contactNumber")));
@@ -216,29 +241,26 @@ public class AppController extends HttpServlet {
 		map.put("overdraft", Double.parseDouble(request.getParameter("overdraft")));
 		map.put("accountBalance", Double.parseDouble(request.getParameter("balance")));
 		// System.out.println("L2");
-		//dob check
-//		
-		boolean isDob=dobCheck((LocalDate)map.get("dateOfBirth"));
-		boolean check=((double)map.get("accountBalance")>=10000.0 )?true:false;
-		if(isDob&&check){
+		// dob check
+		boolean isDob = dobCheck((LocalDate) map.get("dateOfBirth"));
+		boolean check = ((double) map.get("accountBalance") >= 10000.0) ? true : false;
+		if (isDob && check) {
 			service.createNewCurrentAccount(map);
-			}
-		else
-		{
-			if(!isDob) {
+		} else {
+			if (!isDob) {
 				request.setAttribute("message", "You must be above 18 years of age to bank with us. Sorry!");
 				request.getRequestDispatcher("messagePage.jsp").forward(request, response);
-			}
-			else {
-				request.setAttribute("message", "Minimum balance of Rs.10,000.00 is required to open a Current account!! Sorry");
+			} else {
+				request.setAttribute("message",
+						"Minimum balance of Rs.10,000.00 is required to open a Current account!! Sorry");
 				request.getRequestDispatcher("messagePage.jsp").forward(request, response);
 			}
 		}
 	}
 
-
-
-	private void createSavingsAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// helper method to create a new savings account
+	private void createSavingsAccount(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Map<String, Object> map = new HashMap<>();
 		map.put("accountHolderName", request.getParameter("customerName"));
 		map.put("contactNo", Long.parseLong(request.getParameter("contactNumber")));
@@ -251,29 +273,29 @@ public class AppController extends HttpServlet {
 		map.put("salary", Boolean.parseBoolean(request.getParameter("salaried")));
 		map.put("accountBalance", Double.parseDouble(request.getParameter("balance")));
 		// System.out.println("L1");
-		//dob check
-		boolean isDob=dobCheck((LocalDate)map.get("dateOfBirth"));
-		boolean check=( ((boolean)map.get("salary")&&(double)map.get("accountBalance")>=0.0) || (!(boolean)map.get("salary")&&(double)map.get("accountBalance")>=5000.0 ))?true:false;
-		
-		if(isDob&&check){
+		// dob check
+		boolean isDob = dobCheck((LocalDate) map.get("dateOfBirth"));
+		boolean check = (((boolean) map.get("salary") && (double) map.get("accountBalance") >= 0.0)
+				|| (!(boolean) map.get("salary") && (double) map.get("accountBalance") >= 5000.0)) ? true : false;
+
+		if (isDob && check) {
 			service.createNewSavingsAccount(map);
-			}
-		else
-		{
-			if(!isDob) {
+		} else {
+			if (!isDob) {
 				request.setAttribute("message", "You must be above 18 years of age to bank with us. Sorry!");
 				request.getRequestDispatcher("messagePage.jsp").forward(request, response);
-			}
-			else {
-				request.setAttribute("message", "Minimum balance of Rs.5000.00 is required to open a Savings account!! Sorry");
+			} else {
+				request.setAttribute("message",
+						"Minimum balance of Rs.5000.00 is required to open a Savings account!! Sorry");
 				request.getRequestDispatcher("messagePage.jsp").forward(request, response);
 			}
 		}
 	}
 
+	// helper method that returns if the date passed in the parameter is above 18yrs
 	private boolean dobCheck(LocalDate date) {
-		LocalDate now=LocalDate.now();
-		return (now.getYear()-date.getYear()>=18 )?true:false;
+		LocalDate now = LocalDate.now();
+		return (now.getYear() - date.getYear() >= 18) ? true : false;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

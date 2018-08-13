@@ -1,14 +1,11 @@
 package com.cg.books.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-
 import com.cg.books.pojo.Book;
-
+//Data Access Object class for the bookCart application
 public class BookDAO {
 
 	private List<Book> books;
@@ -38,6 +35,7 @@ public class BookDAO {
 		cart = new HashSet<>();
 	}
 
+	//adds a new book to the cart or updates the quantity
 	public void addNewBookToCart(String isbn) {
 		for (Book book : books) {
 			if (book.getIsbn().equalsIgnoreCase(isbn)) {
@@ -49,24 +47,39 @@ public class BookDAO {
 			if (book.getIsbn().equalsIgnoreCase(isbn)) {
 				cart.add(book);
 			}
-			
+
 		}
 	}
 
+	//dao to remove a qty or book from the cart
 	public void removeBookfromCart(String isbn) {
-		for (Book book : cart) {
-			if (book.getIsbn().equalsIgnoreCase(isbn))
+		for (Book book : books) {
+			if (book.getIsbn().equalsIgnoreCase(isbn)) {
 				book.setQuantity(book.getQuantity() - 1);
+				break;
+			}
 		}
 		for (Book book : cart) {
-			if ((book.getIsbn().equalsIgnoreCase(isbn)) && (book.getQuantity() == 0))
-				cart.remove(book);break;
+			if ((book.getIsbn().equalsIgnoreCase(isbn)) && (book.getQuantity() == 0)) {
+				cart.remove(book);
+				break;
+			}
 		}
-
 	}
 
+	//returns cart size
 	public int getCartCount() {
 		return cart.size();
+	}
+
+	//gets total number of bookss
+	public double[] getTotalQty() {
+		double ar[] = { 0.0, 0.0 };
+		for (Book book : books) {
+			ar[0] += book.getQuantity();
+			ar[1] += book.getTotalPrice();
+		}
+		return ar;
 	}
 
 }

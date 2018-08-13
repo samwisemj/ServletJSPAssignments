@@ -39,7 +39,7 @@ body {
 							value="${requestScope.account.accountHolder.customerId}" readonly></td>
 						<td>Customer Name:</td>
 						<td><input type="text" name="customerName"
-							value="${requestScope.account.accountHolder.customerName}"></td>
+							value="${requestScope.account.accountHolder.customerName}" required="required"></td>
 						<td>Account Number:</td>
 
 						<td><label>Browser Select</label><select
@@ -51,13 +51,13 @@ body {
 						<td>Mobile Number:</td>
 						<td><input type="text" name="contactNumber"
 							value="${requestScope.account.accountHolder.contactNumber}"
-							pattern="^\d{10}"></td>
+							pattern="^\d{10}" required="required"></td>
 						<td>Email ID:</td>
 						<td><input type="email" name="email"
-							value="${requestScope.account.accountHolder.emailId}"></td>
+							value="${requestScope.account.accountHolder.emailId}" required="required"></td>
 						<td>Date of Birth:</td>
 						<td><input type="date" name="dateOfBirth"
-							value="${requestScope.account.accountHolder.dateOfBirth}"></td>
+							value="${requestScope.account.accountHolder.dateOfBirth}" required="required"></td>
 					</tr>
 				</table><br><br>
 				<div class="center-align">

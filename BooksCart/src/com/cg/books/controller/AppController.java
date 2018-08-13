@@ -27,39 +27,42 @@ public class AppController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		service=new Services();
 	}
-	
+	//standard servlet doGET() method 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		String action = request.getServletPath();
 		switch (action) {
-		case "/redirect.AppController":
+		case "/redirect.AppController"://redirects to view all books
 			goToHome(request,response);
 			break;
-		case "/addToCart.AppController":	
+		case "/addToCart.AppController"://adds an item to cart with help of helper method	
 			addToCart(request,response);
 			goToHome(request, response);
 			break;
-		case "/viewCart.AppController":
+		case "/viewCart.AppController"://views cart with help of helper method	
 			goToCart(request,response);
 			break;
-			case "/removeFromCart.AppController":
+		case "/removeFromCart.AppController"://remove an item from the cart
 				removeFromCart(request,response);
 			break;
 		}
 	}
 
+	//helper method to remove an item or a quantity from the cart
 	private void removeFromCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		service.remove(request.getParameter("isbn"));
 		goToCart(request, response);
 	}
 
+	//helper method to view the cart
 	private void goToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setAttribute("cartlist", service.getCart());
 		request.setAttribute("cartCount", service.getCount());
+		request.setAttribute("totalQtyAndPrice", service.getTotalQty());
 		request.getRequestDispatcher("cartdetails.jsp").forward(request, response);
 	}
-
+	//helper method to go to the home page
 	private void goToHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println(service.getBooks());
@@ -67,7 +70,8 @@ public class AppController extends HttpServlet {
 		request.setAttribute("cartCount", service.getCount());
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 	}
-
+	
+	//helper method to add a new item or quantity to the cart
 	private void addToCart(HttpServletRequest request, HttpServletResponse response) {
 			service.add(request.getParameter("isbn"));
 	}

@@ -34,21 +34,21 @@ body {
 		<table class="striped">
 			<tr>
 				<td>Enter Customer Name:</td>
-				<td><input type="text" name="customerName"></td>
+				<td><input type="text" name="customerName" required="required"></td>
 				<td >Enter Mobile Number:</td>
-				<td><input type="text" name="contactNumber" pattern="^\d{10}"></td>
+				<td><input type="text" name="contactNumber" pattern="^\d{10}" required="required"></td>
 			</tr>
 			<tr >
 				<td >Enter Email ID:</td>
-				<td><input type="email" name="email"></td>
+				<td><input type="email" name="email" required="required"></td>
 				<td >Enter Date of Birth:</td>
-				<td><input type="date" name="dateOfBirth"></td>
+				<td><input type="date" name="dateOfBirth" required="required"></td>
 			</tr>
 			<tr>
 				<td >Enter Address:</td>
-				<td><input type="text" name="address"></td>
+				<td><input type="text" name="address" required="required"></td>
 				<td >Enter Nationality:</td>
-				<td><input type="text" name="nationality"></td>
+				<td><input type="text" name="nationality" required="required"></td>
 			</tr>
 			<tr>
 				<td>Gender</td>
@@ -65,7 +65,7 @@ body {
 			<tr>
 				<!-- (Min. Opening Bal must be Rs.5000, if not salaried) -->
 				<td>Enter the initial balance<br>(Minimum Rs.5000.00 if<br>not salaried)</td>
-				<td><input type="text" name="balance" placeholder="RS."></td>
+				<td><input type="text" name="balance" placeholder="RS." required="required"></td>
 				<td></td><td></td>
 			</tr>
 			<tr><td></td>
